@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,5 +20,14 @@ Route::get('/', function () {
 });
 
 Route::get('/articles', function(Request $request) {
-	return $request->schemeAndHttpHost();
-});
+
+   	$url =  route('articles.index');
+	$showUrl =  route('articles.show', ['id' => 2, 'nom' => 's17']);
+
+    return $showUrl;
+})->name('articles.index');
+
+Route::get('/articles/{id}', function(Request $request, int $id) {
+    // return redirect()->route('articles.index');
+    return to_route('articles.index');
+})->name('articles.show');
