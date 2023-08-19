@@ -3,6 +3,7 @@
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\EnsureUserIsSylla;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,17 +18,32 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+})->name('home');
+
+
+Route::middleware(EnsureUserIsSylla::class)->group(function() {
+
+    Route::get('/articles', function(Request $request) {
+        return "Page d'articles";
+    })->name('articles.index');
+    
+    Route::get('/articles/{id}', function(Request $request, int $id) {
+        return Post::find($id)->title;
+    })->name('articles.show');
+
 });
 
-Route::get('/articles', function(Request $request) {
+Route::prefix('admin')
+->name('admin.')
+->group(function() {
 
-   	$url =  route('articles.index');
-	$showUrl =  route('articles.show', ['id' => 2, 'nom' => 's17']);
+    Route::get('/articles', function(Request $request) {
+        return "Admin Page d'articles";
+    })->name('articles.index');
+    
+    Route::get('/articles/{id}', function(Request $request, int $id) {
+        return Post::find($id)->title;
+    })->name('articles.show');
 
-    return $showUrl;
-})->name('articles.index');
+});
 
-Route::get('/articles/{id}', function(Request $request, int $id) {
-    // return redirect()->route('articles.index');
-    return to_route('articles.index');
-})->name('articles.show');
