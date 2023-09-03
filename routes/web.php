@@ -21,29 +21,27 @@ Route::get('/', function () {
 })->name('home');
 
 
-Route::middleware(EnsureUserIsSylla::class)->group(function() {
-
-    Route::get('/articles', function(Request $request) {
-        return "Page d'articles";
-    })->name('articles.index');
+Route::name('posts.')->group(function() {
+    Route::get('/posts', function(Request $request) {
+        return "Page d'posts";
+    })->name('index');
     
-    Route::get('/articles/{id}', function(Request $request, int $id) {
-        return Post::find($id)->title;
-    })->name('articles.show');
-
+    Route::get('/posts/{post:title}', function(Request $request, Post $post) {
+        return $post->title;
+    })->name('show');
 });
 
 Route::prefix('admin')
 ->name('admin.')
 ->group(function() {
 
-    Route::get('/articles', function(Request $request) {
-        return "Admin Page d'articles";
-    })->name('articles.index');
+    Route::get('/posts', function(Request $request) {
+        return "Admin Page d'posts";
+    })->name('posts.index');
     
-    Route::get('/articles/{id}', function(Request $request, int $id) {
+    Route::get('/posts/{id}', function(Request $request, int $id) {
         return Post::find($id)->title;
-    })->name('articles.show');
+    })->name('posts.show');
 
 });
 
