@@ -20,7 +20,7 @@ class PostFactory extends Factory
         return [
             'title' => fake()->sentence($nbWords = 6, $variableNbWords = true),
             'slug' => Str::slug(fake()->sentence($nbWords = 6, $variableNbWords = true), "-"),
-            'contenu' => fake()->paragraph($nbSentences = 20, $variableNbSentences = true),
+            'content' => fake()->paragraph($nbSentences = 20, $variableNbSentences = true),
             'created_at' => now(),
             'updated_at' => now()
         ];

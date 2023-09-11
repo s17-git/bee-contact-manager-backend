@@ -27,15 +27,15 @@ Route::get('/', function () {
 //     Route::get('/posts/{id}', [PostController::class, 'show'])->name('show');
 // });
 
-Route::resource('posts', PostController::class);
+Route::resource('posts', PostController::class)->scoped(['post'=>'slug']);
 
 // Route::prefix('admin')
 // ->name('admin.')
 // ->group(function() {
 
-//     Route::get('/posts', function(Request $request) {
-//         return "Admin Page d'posts";
-//     })->name('posts.index');
+    // Route::get('/posts', function(Request $request) {
+    //     return "Admin Page d'posts";
+    // })->name('posts.index');
     
 //     Route::get('/posts/{id}', function(Request $request, int $id) {
 //         return Post::find($id)->title;

@@ -10,9 +10,14 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Post::all();
+        $from = $request->query('from');
+        $to = $request->query('to');
+        dump($from);
+        dd($to);
+
+        return view('posts.index', ['posts' => Post::all()]) ;
     }
 
     /**
@@ -20,7 +25,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -28,7 +33,8 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
+
     }
 
     /**
@@ -36,7 +42,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return $post;
+        return view('posts.show', ['post' =>$post]);
     }
 
     /**
