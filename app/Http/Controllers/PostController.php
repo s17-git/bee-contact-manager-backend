@@ -12,11 +12,6 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $from = $request->query('from');
-        $to = $request->query('to');
-        dump($from);
-        dd($to);
-
         return view('posts.index', ['posts' => Post::all()]) ;
     }
 
@@ -33,6 +28,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->whenHas('title', function(array $inputs) {
+            dump($inputs);
+        });
+
         dd($request->all());
 
     }
@@ -40,8 +40,10 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show(Request $request, Post $post)
     {
+
+        dd($request->url());
         return view('posts.show', ['post' =>$post]);
     }
 
