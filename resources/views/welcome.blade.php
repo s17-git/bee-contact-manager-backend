@@ -12,7 +12,11 @@
     </head>
     <body class="antialiased">
     <h1 class="text-3xl font-bold underline text-red-500">
-        Hello world!
+        Bee News
     </h1>
+
+    <div>
+        <a href="/posts">Posts</a>
+    </div>
     </body>
 </html>
